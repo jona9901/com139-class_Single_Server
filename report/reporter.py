@@ -59,7 +59,7 @@ def report_all_by_field_obj(my_objs: list, my_field: str, w_filter: bool = False
         print('success_rate %f' % success_rate)
 
         bar_plot([undefined, success, wait, reneged])
-	report_multiple_runs()
+	#report_multiple_runs()
 
 
 def report_all_by_ts(my_ts: list, my_label: str, total_time: float) -> None:
