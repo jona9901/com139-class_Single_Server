@@ -5,12 +5,20 @@ import numpy as np
 from scipy.interpolate import make_interp_spline, BSpline
 
 
+def bar_plot(x: list) -> None:
+    labels = 'Undefined Success Wait Reneged'
+
+    plt.bar([0, 1, 2, 3], height=x, edgecolor='black')
+
+    plt.ylim(0, 25)
+    plt.xlabel(labels)
+    plt.show()
+
 def print_sorted_dict(my_dict: dict, my_label: str = '') -> None:
     if my_label != '':
         print('\n === %s === ' % my_label)
     for key in sorted(my_dict.keys()):
         print("%d :: %7.3f" % (key, my_dict[key]))
-
 
 def autolabel(rects, ax):
     # attach some text labels

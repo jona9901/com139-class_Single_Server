@@ -4,9 +4,12 @@ from assets.status import Status
 
 import matplotlib.pyplot as plt
 import numpy as np
+import sys
 
 # TODO: Create report of multiple executions
+default_out = './report.txt'
 
+status_values = list()
 
 def report_all_by_field_obj(my_objs: list, my_field: str, w_filter: bool = False, val: float = 0.0) -> None:
     print('\n === Report for %s field ===' % my_field)
@@ -27,6 +30,9 @@ def report_all_by_field_obj(my_objs: list, my_field: str, w_filter: bool = False
         print('Stdev %s: %5.3f' % (my_field, get_stdev_obj(my_objs, my_field, w_filter, val)))
         print('Variance %s: %5.3f' % (my_field, get_variance_obj(my_objs, my_field, w_filter, val)))
         # TODO: Calculate the percentage of minimal value
+        matchingVal = get_matching_value_obj(my_objs, my_field, min_time)
+        minimal_p = len(matchingVal) / NEW_CUSTOMERS
+        print('Percentage of minimal value: %f' % minimal_p)
         # TODO: Group std dev customers and display the list
     else:
         #print(is_status)
@@ -47,6 +53,12 @@ def report_all_by_field_obj(my_objs: list, my_field: str, w_filter: bool = False
             elif (value == Status.RENEGED):
                 reneged += 1
         
+
+        status_values.append(undefined)
+        status_values.append(success)
+        status_values.append(wait)
+        status_values.append(reneged)
+
         print("Undefined: %d" % undefined)
         print("Success: %d" % success)
         print("Wait: %d" % wait)
@@ -58,8 +70,13 @@ def report_all_by_field_obj(my_objs: list, my_field: str, w_filter: bool = False
         success_rate = success * 100 / len(values)
         print('success_rate %f' % success_rate)
 
-        bar_plot([undefined, success, wait, reneged])
-	#report_multiple_runs()
+        #bar_plot([undefined, success, wait, reneged])
+        #status_values = [undefined, success,  wait, reneged]
+        if CREATE_SIM_GRAPHS:
+            # Plot Histogram
+            bar_plot(status_values)
+
+        report_multiple_runs(success, undefined, wait, reneged)
 
 
 def report_all_by_ts(my_ts: list, my_label: str, total_time: float) -> None:
@@ -78,11 +95,16 @@ def report_all_by_ts(my_ts: list, my_label: str, total_time: float) -> None:
     else:
         print('%s not used' % my_label)
 
-def bar_plot(x) -> None:
-        labels = 'Undefined Success Wait Reneged'
-
-        plt.bar([0, 1, 2, 3], height=x, edgecolor='black')
-
-        plt.ylim(0, 25)
-        plt.xlabel(labels)
-        plt.show()
+def report_multiple_runs(success: int, undefined:int, wait:int, reneged:int) -> None:
+    out = default_out
+    if len(sys.argv) > 1:
+        out = sys.argv[1]
+    file = open(out, 'a')
+    
+    file.write('Number of customers: {}\nNumber of cashiers: {}\n\n'.format(NEW_CUSTOMERS, CAPACITY))
+    file.write(' === Report for Status field ===\n' )
+    file.write('Success count: {}\nUndefined count: {}\nWait count: {}\nReneged count: {}\n'.format(success, undefined, wait, reneged))
+    print('Success rate: {}%'.format(success))
+    file.write('Success rate: {}%\n'.format(success))
+    file.write('----------------------------\n')
+    file.close() 

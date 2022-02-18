@@ -1,0 +1,40 @@
+Number of customers: 25
+Number of cashiers: 2
+
+ === Report for Status field ===
+Success count: 17
+Undefined count: 0
+Wait count: 0
+Reneged count: 8
+Success rate: 17%
+----------------------------
+Number of customers: 25
+Number of cashiers: 2
+
+ === Report for Status field ===
+Success count: 17
+Undefined count: 0
+Wait count: 0
+Reneged count: 8
+Success rate: 17%
+----------------------------
+Number of customers: 25
+Number of cashiers: 2
+
+ === Report for Status field ===
+Success count: 17
+Undefined count: 0
+Wait count: 0
+Reneged count: 8
+Success rate: 17%
+----------------------------
+Number of customers: 25
+Number of cashiers: 2
+
+ === Report for Status field ===
+Success count: 17
+Undefined count: 0
+Wait count: 0
+Reneged count: 8
+Success rate: 17%
+----------------------------
